@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+<title>OUR STORY ❤️</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:Arial,sans-serif;
+    background:#03040b;
+    color:white;
+}
+
+body{
+    position:relative;
+}
+
+#stars{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    opacity:.7;
+    animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+    from{opacity:.2;transform:scale(.7)}
+    to{opacity:1;transform:scale(1.4)}
+}
+
+#game{
+    position:relative;
+    z-index:2;
+    width:100%;
+    height:100%;
+}
+
+.screen{
+    position:absolute;
+    inset:0;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:25px;
+    overflow:hidden;
+}
+
+.screen.active{
+    display:flex;
+}
+
+.logo{
+    font-size:clamp(42px,12vw,75px);
+    font-weight:900;
+    letter-spacing:4px;
+    text-shadow:
+        0 0 10px rgba(255,255,255,.5),
+        0 0 30px rgba(255,80,130,.4);
+}
+
+.subtitle{
+    margin-top:10px;
+    color:#ddd;
+    font-size:15px;
+    letter-spacing:2px;
+}
+
+.start-btn{
+    margin-top:40px;
+    padding:17px 38px;
+    border:1px solid rgba(255,255,255,.5);
+    border-radius:50px;
+    background:rgba(255,255,255,.08);
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 0 30px rgba(255,255,255,.1);
+    transition:.2s;
+}
+
+.start-btn:active{
+    transform:scale(.94);
+}
+
+.hint{
+    position:absolute;
+    bottom:25px;
+    font-size:12px;
+    color:#777;
+}
+
+.progress{
+    position:absolute;
+    top:15px;
+    left:15px;
+    right:15px;
+    height:4px;
+    background:rgba(255,255,255,.12);
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:white;
+    transition:width .5s ease;
+}
+
+.chapter-number{
+    font-size:13px;
+    letter-spacing:3px;
+    color:#aaa;
+    margin-bottom:12px;
+}
+
+.chapter-title{
+    font-size:clamp(30px,8vw,54px);
+    font-weight:900;
+    margin-bottom:15px;
+}
+
+.chapter-card{
+    width:min(680px,94vw);
+    max-height:65vh;
+    overflow-y:auto;
+    padding:25px;
+    border-radius:25px;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.13);
+    box-shadow:0 20px 70px rgba(0,0,0,.4);
+    backdrop-filter:blur(10px);
+}
+
+.chapter-text{
+    font-size:17px;
+    line-height:1.7;
+    color:#eee;
+}
+
+.chapter-text strong{
+    color:#fff;
+}
+
+.pink{
+    color:#ff8baa;
+}
+
+.gold{
+    color:#ffe58a;
+}
+
+.next-btn,
+.choice-btn{
+    margin-top:18px;
+    padding:14px 25px;
+    border:0;
+    border-radius:30px;
+    background:#fff;
+    color:#111;
+    font-weight:bold;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.choice-area{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+    margin-top:20px;
+}
+
+.choice-btn{
+    margin:0;
+    background:rgba(255,255,255,.1);
+    color:white;
+    border:1px solid rgba(255,255,255,.2);
+}
+
+.heart{
+    position:fixed;
+    z-index:10;
+    pointer-events:none;
+    font-size:20px;
+    animation:heartFloat 3s linear forwards;
+}
+
+@keyframes heartFloat{
+    0%{
+        transform:translateY(0) scale(.5) rotate(0);
+        opacity:1;
+    }
+    100%{
+        transform:translateY(-100vh) scale(1.5) rotate(30deg);
+        opacity:0;
+    }
+}
+
+.star-game{
+    position:relative;
+    width:100%;
+    height:230px;
+    margin:10px 0;
+    overflow:hidden;
+}
+
+.big-star{
+    position:absolute;
+    font-size:65px;
+    cursor:pointer;
+    transition:.3s;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    filter:drop-shadow(0 0 15px #fff);
+}
+
+.big-star:active{
+    transform:translate(-50%,-50%) scale(.8) rotate(20deg);
+}
+
+.star-result{
+    min-height:25px;
+    color:#ffd6e0;
+    font-weight:bold;
+}
+
+.waiting-number{
+    font-size:80px;
+    font-weight:900;
+}
+
+.final-title{
+    font-size:clamp(38px,11vw,70px);
+    font-weight:900;
+}
+
+.signature{
+    margin-top:35px;
+    font-family:"Brush Script MT","Segoe Script",cursive;
+    font-size:52px;
+    font-style:italic;
+    transform:rotate(-5deg);
+}
+
+.signature small{
+    display:block;
+    font-family:Arial,sans-serif;
+    font-size:13px;
+    font-style:normal;
+    color:#999;
+    transform:rotate(5deg);
+    margin-bottom:5px;
+}
+
+.final-message{
+    margin-top:25px;
+    font-size:20px;
+    color:#eee;
+    line-height:1.7;
+}
+
+.restart{
+    margin-top:30px;
+}
+
+.cinematic{
+    animation:cinematicIn .8s ease;
+}
+
+@keyframes cinematicIn{
+    from{
+        opacity:0;
+        transform:scale(1.04);
+        filter:blur(8px);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+        filter:blur(0);
+    }
+}
+
+.music-btn{
+    position:absolute;
+    right:15px;
+    top:27px;
+    z-index:20;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(255,255,255,.08);
+    color:white;
+    cursor:pointer;
+}
+
+.music-name{
+    position:absolute;
+    top:75px;
+    right:15px;
+    font-size:10px;
+    color:#888;
+    z-index:20;
+}
+
+@media(max-width:500px){
+    .chapter-card{
+        max-height:62vh;
+        padding:20px;
+    }
+
+    .chapter-text{
+        font-size:16px;
+    }
+
+    .chapter-title{
+        font-size:32px;
+    }
+
+    .signature{
+        font-size:45px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+
+<!-- MUSIC FILES -->
+<audio id="music" loop></audio>
+
+<div id="game">
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+<div id="musicName" class="music-name"></div>
+
+<!-- HOME -->
+
+<section id="home" class="screen active">
+
+    <div class="logo">OUR STORY ❤️</div>
+
+    <div class="subtitle">
+        1 JANUARY 2026 → UNTIL NOW
+    </div>
+
+    <button class="start-btn" onclick="startGame()">
+        ▶ START OUR STORY
+    </button>
+
+    <div class="hint">
+        A story about two idiots... and one suspicious star ⭐
+    </div>
+
+</section>
+
+
+<!-- CHAPTERS -->
+
+<section id="chapterScreen" class="screen">
+
+    <div class="progress">
+        <div id="progressBar" class="progress-bar"></div>
+    </div>
+
+    <div id="chapterNumber" class="chapter-number"></div>
+
+    <div id="chapterTitle" class="chapter-title"></div>
+
+    <div id="chapterCard" class="chapter-card cinematic">
+
+        <div id="chapterContent" class="chapter-text"></div>
+
+        <div id="choices" class="choice-area"></div>
+
+        <button id="nextButton"
+                class="next-btn"
+                onclick="nextChapter()">
+            NEXT →
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- FINAL -->
+
+<section id="finalScreen" class="screen">
+
+    <div class="final-title">
+        CHAPTER 1<br>
+        COMPLETE 🏆
+    </div>
+
+    <div class="final-message">
+        Our story didn't end here.<br><br>
+
+        Maybe that little star really did<br>
+        start something. ⭐
+    </div>
+
+    <div class="signature">
+        <small>From your favorite person</small>
+        Rishan ❤️
+    </div>
+
+    <div class="final-message">
+        🔒 Our story isn't finished…
+    </div>
+
+    <button class="start-btn restart" onclick="restartGame()">
+        ↻ PLAY AGAIN
+    </button>
+
+</section>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   20 CHAPTERS
+===================================================== */
+
+const chapters = [
+
+{
+title:"The Day It Started ⭐",
+content:`
+<strong>1 January 2026.</strong><br><br>
+
+It started like an ordinary picnic with our friends.
+
+We cooked together, ate together, laughed,
+took photos and enjoyed ourselves.
+
+I didn't know it then...
+
+but that ordinary-looking day was about to become
+the beginning of my favourite story.
+`
+},
+
+{
+title:"The Wet Backpack 🎒",
+content:`
+When we were getting close to our homes,
+somehow we stopped together.
+
+Just the two of us.
+
+I remember saying:
+
+<span class="pink">“My plate is with you, right?”</span>
+
+You took it out of your backpack.
+
+Then I noticed it.
+
+Your backpack was completely wet.
+
+<span class="gold">“Ohh, your backpack is wet now.”</span>
+
+Then we said goodbye...
+and went our separate ways.
+`
+},
+
+{
+title:"One More Night 🌙",
+content:`
+But somehow...
+
+the day wasn't finished yet.
+
+That night there was a New Year celebration.
+
+At first everyone was together.
+
+Then one person left.
+
+Then another.
+
+Then another.
+
+Until somehow...
+
+<strong>it was just you and me.</strong>
+`
+},
+
+{
+title:"MEMNAH HAI 😂❤️",
+content:`
+We started talking.
+
+Work.
+
+Random things.
+
+Things that probably weren't even important. 😂
+
+But whenever someone asked me to go with them...
+
+I would call you.
+
+<span class="pink">“MEMNAH HAI.”</span>
+
+Again.
+
+And again.
+
+Because honestly...
+
+<strong>I didn't want to leave you.</strong>
+`
+},
+
+{
+title:"One Pocket 🫶",
+content:`
+Then it got cold.
+
+Somehow your hand ended up on my arm...
+
+and then inside my pocket with my hand.
+
+That tiny moment made me feel warm
+even though it was freezing outside.
+
+People were looking at us.
+
+But neither of us cared.
+
+It was just...
+
+<strong>you and me.</strong>
+`
+},
+
+{
+title:"My Crazy Imagination 🤭",
+content:`
+The celebration ended.
+
+But even while going home,
+our hands were still together inside my pocket.
+
+And my imagination?
+
+It was already going crazy.
+
+I was imagining...
+
+Marriage.
+
+Kids.
+
+A happy little life together.
+
+It sounds crazy because it was only the beginning.
+
+But that's how strongly I felt about you.
+`
+},
+
+{
+title:"Under The Open Sky 🌿",
+content:`
+After that, we went home to get a drink.
+
+Then we went near the football playground.
+
+We ate.
+
+We drank.
+
+We talked.
+
+And eventually...
+
+we lay down on the grass.
+
+We were tired.
+
+But somehow I didn't want the night to end.
+`
+},
+
+{
+title:"Your Head On My Chest ❤️",
+content:`
+We looked at my phone.
+
+I even let you see my ugly face on the screen. 😂
+
+We kept talking...
+
+until eventually...
+
+<strong>you fell asleep on my chest.</strong>
+
+And you gave me your clothes
+to cover our feet so we wouldn't be cold.
+
+That tiny thing stayed in my heart.
+`
+},
+
+{
+title:"The Star ⭐",
+content:`
+Then we started looking at the stars.
+
+We were talking about our future.
+
+Our love.
+
+Our story.
+
+The sky was quiet.
+
+Everything felt peaceful.
+
+Until...
+
+one little star started a war. 😂
+`
+},
+
+{
+title:"THE GREAT STAR ARGUMENT ⭐😂",
+content:`
+<div class="star-game">
+
+    <div class="big-star"
+         onclick="starClicked()">
+         ⭐
+    </div>
+
+</div>
+
+Tap the star.
+
+<div id="starResult" class="star-result"></div>
+
+<br>
+
+<strong>You:</strong>
+“It looks like a question mark.”
+
+<br><br>
+
+<strong>Her:</strong>
+“It looks like a shoe.”
+
+<br><br>
+
+And somehow...
+
+this stupid argument became part of our love story.
+`
+},
+
+{
+title:"2 AM 🌙",
+content:`
+We stayed there until around <strong>2 AM.</strong>
+
+But I waited on the road...
+
+<strong>for you.</strong>
+`
+},
+
+{
+title:"Come Back To Me 🫂",
+content:`
+Then you came back.
+
+We started walking together again.
+
+Holding hands.
+
+And then...
+
+we hugged.
+
+At that corner,
+we hugged each other tightly.
+
+At that moment I wasn't thinking about the world.
+
+Neither were you.
+
+It was just...
+
+<strong>us.</strong>
+`
+},
+
+{
+title:"The Forehead Kiss ❤️",
+content:`
+And yes...
+
+I kissed you.
+
+Not on your lips.
+
+<strong>On your forehead.</strong> ❤️
+
+Honestly, I barely remembered it
+because we had been drinking that night. 😂
+
+You were the one who later told me.
+
+And somehow...
+
+even that imperfect memory became beautiful.
+`
+},
+
+{
+title:"Above The Clouds ☁️",
+content:`
+The next day...
+
+we went somewhere that looked like a viewpoint.
+
+Below the mountain,
+clouds were floating.
+
+Everyone was taking group photos.
+
+But me?
+
+I was waiting for my chance.
+
+I wanted...
+
+<strong>a photo with you.</strong>
+
+So when I finally got the chance,
+I called you.
+
+And we took that picture together.
+`
+},
+
+{
+title:"Come On, I'm Your Man 🤭",
+content:`
+After that we went for tea
+at a small shop in our village.
+
+Then we started heading home.
+
+At one point...
+
+you went to pee.
+
+I waited.
+
+When you came back,
+I grabbed your hand.
+
+And basically said:
+
+<strong>“Come on, I'm your man.”</strong> 🤭
+
+That was when I felt something different.
+
+I wanted to protect you.
+
+I wanted to be beside you.
+`
+},
+
+{
+title:"The Fire 🔥",
+content:`
+We reached another friend's house.
+
+Behind the house,
+we made a fire with firewood.
+
+At first...
+
+you weren't sitting beside me.
+
+And I was sitting there thinking:
+
+<em>Should I go sit beside her?</em>
+
+I was about to stand...
+
+But before I could...
+
+<strong>you stood up and came to me.</strong>
+
+You sat beside me.
+
+And inside my head?
+
+I was going crazy.
+
+You were so beautiful.
+
+Your smell.
+
+Your cuteness.
+
+Everything.
+
+I loved all of it.
+`
+},
+
+{
+title:"JU ❤️",
+content:`
+Then we started posting the photos
+we had taken earlier on Instagram.
+
+And your caption said:
+
+<strong>“JU.”</strong>
+
+I didn't even know what it meant.
+
+Later I found out...
+
+it was a special word used to call your lover.
+
+And when I realized what it meant...
+
+I don't think you understood
+how happy that made me.
+`
+},
+
+{
+title:"I Don't Want To Go Home 🥹",
+content:`
+We kept holding hands until midnight.
+
+Then it was time to go home.
+
+You were going to drop me.
+
+But when I reached my home...
+
+I ended up going to drop you instead.
+
+Because honestly...
+
+<strong>I didn't want to be apart from you.</strong>
+
+That night was so hard to end.
+
+Because I knew...
+
+the next day you were leaving.
+`
+},
+
+{
+title:"Three Months ⏳❤️",
+content:`
+<div class="waiting-number">3</div>
+
+<strong>MONTHS.</strong><br><br>
+
+Three months without seeing you properly.
+
+But even though we were apart...
+
+we weren't really separated.
+
+We texted.
+
+We called.
+
+We video-called.
+
+We stayed connected.
+
+Still...
+
+three months felt way too long.
+
+I missed your hand.
+
+I missed your hugs.
+
+I missed having you beside me.
+`
+},
+
+{
+title:"We Meet Again ❤️⭐",
+content:`
+And then...
+
+the three months finally passed.
+
+We met again.
+
+And when I saw you...
+
+it felt like all those months of waiting disappeared.
+
+We were close again.
+
+And from that day until now...
+
+<strong>we're still continuing our story.</strong>
+
+From 1 January 2026...
+
+<strong>until today.</strong>
+
+And if anyone asks me how our story began...
+
+I'll tell them:
+
+It started with a picnic.
+
+With cooking.
+
+With friends.
+
+With a wet backpack.
+
+With “MEMNAH HAI.”
+
+With your hand inside my pocket.
+
+With you sleeping on my chest.
+
+With a fire behind a friend's house.
+
+With a word called “JU.”
+
+With a forehead kiss I barely remember.
+
+And...
+
+with two idiots arguing whether a star
+looked like a shoe or a question mark.
+
+⭐😂
+
+Maybe that little star really did start something.
+
+And honestly...
+
+<strong>I'm still blaming that star for everything.</strong> 🤭❤️
+`
+}
+];
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let currentChapter = 0;
+let musicPlaying = false;
+
+
+/* =====================================================
+   MUSIC SYSTEM
+===================================================== */
+
+const musicFiles = {
+    bloom: "Bloom.mp3",
+    sparks: "Sparks.mp3",
+    letHerGo: "Let-Her-Go.mp3"
+};
+
+let currentSong = "";
+
+
+function getSongForChapter(chapter){
+
+    /*
+       Chapters 1–9:
+       Bloom
+
+       Chapter 10:
+       Sparks, but volume reduced
+
+       Chapters 11–18:
+       Sparks
+
+       Chapter 19:
+       Let Her Go
+
+       Chapter 20:
+       No music
+    */
+
+    if(chapter >= 0 && chapter <= 8){
+        return {
+            file:musicFiles.bloom,
+            name:"🌿 Bloom"
+        };
+    }
+
+    if(chapter >= 9 && chapter <= 17){
+        return {
+            file:musicFiles.sparks,
+            name:"✨ Sparks"
+        };
+    }
+
+    if(chapter === 18){
+        return {
+            file:musicFiles.letHerGo,
+            name:"🌙 Let Her Go"
+        };
+    }
+
+    return null;
+}
+
+
+function changeMusic(chapter){
+
+    const music =
+        document.getElementById("music");
+
+    const song =
+        getSongForChapter(chapter);
+
+    if(!song){
+
+        music.pause();
+
+        music.currentTime = 0;
+
+        document.getElementById("musicName")
+            .innerHTML = "🔇 Silence";
+
+        currentSong = "";
+
+        return;
+    }
+
+    if(currentSong === song.file){
+        return;
+    }
+
+    currentSong = song.file;
+
+    music.pause();
+
+    music.src = song.file;
+
+    music.load();
+
+    music.volume = .55;
+
+    document.getElementById("musicName")
+        .innerHTML = song.name;
+
+    if(musicPlaying){
+
+        music.play().catch(()=>{
+            musicPlaying = false;
+        });
+    }
+}
+
+
+/* =====================================================
+   START GAME
+===================================================== */
+
+function startGame(){
+
+    document.getElementById("home")
+        .classList.remove("active");
+
+    document.getElementById("chapterScreen")
+        .classList.add("active");
+
+    currentChapter = 0;
+
+    musicPlaying = true;
+
+    changeMusic(currentChapter);
+
+    const music =
+        document.getElementById("music");
+
+    music.play().catch(()=>{
+        musicPlaying = false;
+    });
+
+    showChapter();
+
+    createHeartBurst();
+}
+
+
+/* =====================================================
+   SHOW CHAPTER
+===================================================== */
+
+function showChapter(){
+
+    const chapter =
+        chapters[currentChapter];
+
+    document.getElementById("chapterNumber")
+        .innerHTML =
+        `LEVEL ${currentChapter + 1} / ${chapters.length}`;
+
+    document.getElementById("chapterTitle")
+        .innerHTML =
+        chapter.title;
+
+    document.getElementById("chapterContent")
+        .innerHTML =
+        chapter.content;
+
+    document.getElementById("choices")
+        .innerHTML = "";
+
+    const nextButton =
+        document.getElementById("nextButton");
+
+    if(currentChapter === chapters.length - 1){
+
+        nextButton.innerHTML =
+            "FINISH STORY ❤️";
+
+    }else{
+
+        nextButton.innerHTML =
+            "NEXT →";
+    }
+
+    const progress =
+        ((currentChapter + 1) /
+        chapters.length) * 100;
+
+    document.getElementById("progressBar")
+        .style.width =
+        progress + "%";
+
+    changeMusic(currentChapter);
+
+    const card =
+        document.getElementById("chapterCard");
+
+    card.classList.remove("cinematic");
+
+    void card.offsetWidth;
+
+    card.classList.add("cinematic");
+
+    createHeartBurst();
+}
+
+
+/* =====================================================
+   NEXT
+===================================================== */
+
+function nextChapter(){
+
+    if(currentChapter <
+       chapters.length - 1){
+
+        currentChapter++;
+
+        showChapter();
+
+    }else{
+
+        finishGame();
+    }
+}
+
+
+/* =====================================================
+   STAR MINI GAME
+===================================================== */
+
+function starClicked(){
+
+    const result =
+        document.getElementById("starResult");
+
+    const answers = [
+
+        "You: QUESTION MARK ❓",
+
+        "Her: SHOE 👟",
+
+        "The star: “Why are you two like this?” 😂",
+
+        "Official result: Nobody won. 😂❤️",
+
+        "But that star became part of your story. ⭐"
+    ];
+
+    let index = 0;
+
+    function showAnswer(){
+
+        if(index < answers.length){
+
+            result.innerHTML =
+                answers[index];
+
+            index++;
+
+            setTimeout(
+                showAnswer,
+                1100
+            );
+        }
+    }
+
+    showAnswer();
+
+    createHeartBurst();
+}
+
+
+/* =====================================================
+   FINISH GAME
+===================================================== */
+
+function finishGame(){
+
+    const music =
+        document.getElementById("music");
+
+    music.pause();
+
+    music.currentTime = 0;
+
+    currentSong = "";
+
+    document.getElementById("chapterScreen")
+        .classList.remove("active");
+
+    document.getElementById("finalScreen")
+        .classList.add("active");
+
+    document.getElementById("musicName")
+        .innerHTML = "🔇 Silence";
+
+    createMassiveHeartBurst();
+}
+
+
+/* =====================================================
+   RESTART
+===================================================== */
+
+function restartGame(){
+
+    document.getElementById("finalScreen")
+        .classList.remove("active");
+
+    document.getElementById("home")
+        .classList.add("active");
+
+    currentChapter = 0;
+
+    musicPlaying = false;
+
+    currentSong = "";
+
+    document.getElementById("music")
+        .pause();
+
+    document.getElementById("musicName")
+        .innerHTML = "";
+}
+
+
+/* =====================================================
+   MUSIC BUTTON
+===================================================== */
+
+function toggleMusic(){
+
+    const music =
+        document.getElementById("music");
+
+    if(music.paused){
+
+        music.play()
+            .then(()=>{
+                musicPlaying = true;
+            })
+            .catch(()=>{
+                alert(
+                    "Tap START OUR STORY first."
+                );
+            });
+
+    }else{
+
+        music.pause();
+
+        musicPlaying = false;
+    }
+}
+
+
+/* =====================================================
+   HEARTS
+===================================================== */
+
+function createHeart(){
+
+    const heart =
+        document.createElement("div");
+
+    heart.className = "heart";
+
+    const symbols = [
+        "❤️",
+        "💕",
+        "💗",
+        "💖",
+        "💓",
+        "⭐"
+    ];
+
+    heart.innerHTML =
+        symbols[
+            Math.floor(
+                Math.random() *
+                symbols.length
+            )
+        ];
+
+    heart.style.left =
+        Math.random()*100 + "vw";
+
+    heart.style.bottom =
+        "-30px";
+
+    heart.style.fontSize =
+        (15 + Math.random()*25) +
+        "px";
+
+    heart.style.animationDuration =
+        (2.5 + Math.random()*2) +
+        "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },5000);
+}
+
+
+function createHeartBurst(){
+
+    for(let i=0;i<8;i++){
+
+        setTimeout(()=>{
+            createHeart();
+        },i*120);
+    }
+}
+
+
+function createMassiveHeartBurst(){
+
+    for(let i=0;i<40;i++){
+
+        setTimeout(()=>{
+            createHeart();
+        },i*80);
+    }
+}
+
+
+/* =====================================================
+   BACKGROUND STARS
+===================================================== */
+
+function createStars(){
+
+    const container =
+        document.getElementById("stars");
+
+    for(let i=0;i<100;i++){
+
+        const star =
+            document.createElement("div");
+
+        star.className = "star";
+
+        star.style.left =
+            Math.random()*100 + "%";
+
+        star.style.top =
+            Math.random()*100 + "%";
+
+        star.style.animationDelay =
+            Math.random()*3 + "s";
+
+        star.style.opacity =
+            Math.random();
+
+        container.appendChild(star);
+    }
+}
+
+createStars();
+
+
+/* =====================================================
+   RANDOM HEARTS
+===================================================== */
+
+setInterval(()=>{
+
+    if(Math.random() > .55){
+        createHeart();
+    }
+
+},1800);
+
+</script>
+
+</body>
+</html>
